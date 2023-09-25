@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function submit(){
+            var newmessage = document.createElement("div");
+            newmessage.innerHTML = document.getElementById("message").value;
+            newmessage.onclick = remove;
+            document.getElementById("messageList").appendChild(newmessage);
+            save();
+        }
+        function remove(){
+            document.getElementById("messageList").removeChild(this);
+            save();
+        }
+        function save(){
+            localStorage.saveMessageList = document.getElementById("messageList").innerHTML;
+        }
+        function load(){
+            document.getElementById("messageList").innerHTML = localStorage.saveMessageList;
+            for(var i=0; i<messageList.children.length;i++){
+                messageList.children[i].onclick=remove;
+            }
+
+        }
+    </script>
+    <style>
+        body{
+            background-color: pink;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+        }
+        .container{
+            background-color: white;
+            flex-direction: column;
+            width: 500px;
+            height: 700px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+        }
+        #message{
+            margin-top: 50px;
+            width: 350px;
+            height: 200px;
+        }
+        #submit{
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>MY Page 환영</h2>
+    방명록을 작성해 주세요<br/><br/>
+    <div class="container">
+        <input id="message" type="text"/><br/>
+        <div class="messageContainer">
+            <input id="submit" type="button" value="입력" onclick="submit();"></div>
+        <br/><br/>
+        <div id="messageList">
+            <script>
+                if(localStorage.saveMessageList){
+                    load();
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
